@@ -1,0 +1,54 @@
+import copy
+import random
+
+class Hat:
+
+    def __init__ (self, **args):
+        self.args = args
+        self.contents =[]
+        for i in self.args.keys():
+            self.contents+=(self.args[i]*[i])
+
+    def draw(self,num):
+        try:
+            balls = random.sample(self.contents,num)
+        except:
+            balls = copy.copy(self.contents)
+
+        for ball in balls:
+            self.contents.remove(ball)
+
+        return balls
+
+def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
+    M = 0
+    for i in range (num_experiments):
+        hat_copy =  copy.deepcopy(hat)
+        balls = hat_copy.draw(num_balls_drawn)
+
+        eb_list = []
+        for k,v in expected_balls.items():
+           eb_list+= v *[k]
+
+        print ("expected:",eb_list)
+        print ("drawn:",balls)
+
+        if contains_balls(eb_list,balls):
+           M+=1
+
+        print (M)
+
+    probability = M / num_experiments
+    return probability
+
+def contains_balls(expected_balls,actual_balls):
+    for b in expected_balls:
+        if b in actual_balls:
+            actual_balls.remove(b)
+        else:
+            return False
+    return True
+
+
+hat = Hat(black=6, red=4, green=3)
+print (experiment(hat=hat, expected_balls={"red":2,"green":1},num_balls_drawn=5,num_experiments=1000))
