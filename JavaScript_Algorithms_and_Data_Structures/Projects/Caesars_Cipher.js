@@ -1,10 +1,12 @@
-// Convert the given number into a roman numeral.
+// One of the simplest and most widely known ciphers is a Caesar cipher, also known as a shift cipher. In a shift cipher the meanings of the letters are shifted by some set amount.
+//
+// A common modern use is the ROT13 cipher, where the values of the letters are shifted by 13 places. Thus A ↔ N, B ↔ O and so on.
+//
+// Write a function which takes a ROT13 encoded string as input and returns a decoded string.
+//
+// All letters will be uppercase. Do not transform any non-alphabetic character (i.e. spaces, punctuation), but do pass them on.
 
-var convert = {1:"I",2:"II",3:"III",4:"IV",5:"V",6:"VI",7:"VII",8:"VIII",9:"IX",10="X"
-L:"50",C:"100",D:"500",M:"1000"}
 
-Agenda: Division by length
-1: Single Digit: 1-9
-2: Double Digit: 10-99
-3: Tripple Digit:100-999
-4: Quatrupple Digit: 1000-9999
+Agenda:
+Define an Object or Array
+Initialize  array and shift it for n places

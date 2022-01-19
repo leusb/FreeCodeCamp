@@ -11,7 +11,7 @@
 
 
 function palindrome(str) {
-  let lowDenseStripped= str.replace(' ','').toLowerCase().replace(/[^0-9a-z]/gi, '');
+  let lowDenseStripped= str.replace(' ','').toLowerCase().replace(/[^0-9a-z]/g, '');
   let reversed = ""
   for (let i =lowDenseStripped.length-1; i>-1;i--){
     reversed += lowDenseStripped[i]
@@ -24,3 +24,9 @@ palindrome("eye");
 
 // note: if youd store the string in an array you could use the reverse() method
 // return lowDenseStripped === lowDenseStripped.reverse();
+
+// improved:
+function palindrome(str) {
+  let lowDenseStripped = str.toLowerCase().replace(/[^a-z\d]/g, '');
+return lowDenseStripped.split('').reverse().join('') ===lowDenseStripped;
+}
