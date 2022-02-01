@@ -6,8 +6,7 @@ https://dmitripavlutin.com/gentle-explanation-of-this-in-javascript/
 https://dev.to/frolovdev/how-to-operate-with-monetary-values-in-javascript-3fal
 
 
-
-const money ={
+const currencyUnit ={
   "PENNY":1,
   "NICKEL":5,
   "DIME":10,
@@ -20,40 +19,33 @@ const money ={
 }
 
 function checkCashRegister(price, cash, cid){
+  let changeSum= cash*100-price*100
+  let changeSumCheck= changeSum
+  let change =[];
+  let status ='';
 
-// define output variables
-  let status ="";
-  let change = [];
-
-  //define objects to substract from with "while>""
-  let claim= cash*100-price*100
-  let changeOut= claim
-
-  let cidTotal = 0;
-  //remove 0 values from cid
-  let filtered = cid.filter(unit=>unit[1]!==0).reverse();
-  // modify filtered and move values to substraction variables
-  filtered.forEach(unit =>{
-    let currencyUnit = unit[0];
-    let unitSum = unit [1]*100;
-    cidTotal+=unitSum;
+  let cidSum = 0;
+  let filteredCid = cid.filter(elem=>elem[1]!==0).reverse();
+  filteredCid.forEach(elem =>{
+    let curr = elem[0];
+    let currSum = elem [1]*100;
+    cidSum+=currSum;
     let amount = 0;
-    //subtract values from variables and put them into change with amount
-    while(claim>=money[currencyUnit]&&unitSum>0){
-      amount += money[currencyUnit];
-      claim -= money[currencyUnit];
-      unitSum -= money[currencyUnit];
+    while(changeSum>=currencyUnit[curr]&&currSum>0){
+      amount += currencyUnit[curr];
+      changeSum -= currencyUnit[curr];
+      currSum -= currencyUnit[curr];
     }
     if (amount !== 0){
-      change.push([currencyUnit, amount / 100]);
+      change.push([curr, amount / 100]);
     }
   });
 
-  if (claim>0){
+  if (changeSum>0){
     status = "INSUFFICIENT_FUNDS";
     change =[];
   }
-  else if (claim ==0 && changeOut==cidTotal){
+  else if (changeSum ==0 && changeSumCheck==cidSum){
     satus = "CLOSED";
     change = cid;
   }
@@ -70,6 +62,7 @@ console.log (checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["
 console.log (checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
 console.log (checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
 console.log (checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
+
 
 
   const money ={
