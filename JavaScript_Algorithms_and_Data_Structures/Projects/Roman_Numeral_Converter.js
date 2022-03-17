@@ -20,8 +20,7 @@ function convertToRoman(num) {
 }
 
 
-
-// Alternative
+//different approach (substracting)
 function convertToRoman(num){
   let number  = {1: "I", 4 : "IV", 5: "V", 9 : "IX",
   10 : "X", 40 : "XL", 90 : "XC",
